@@ -87,9 +87,9 @@ struct s_pxl
 	int x;
 	int y;
 	int h;
-	int x1;
-	int y1;
-	int h1;
+	int x_1;
+	int y_1;
+	int h_1;
 };
 
 struct s_mlx

@@ -65,12 +65,9 @@ void			ft_screeninfo(t_fdf *fdf)
 }
 
 /*
-** DESCRIPTION
 ** The ft_sstrlen() function will return the size of the char **s.
-**
-** RETURN VALUES:
-**  SUCCESS: int of the size of **s
-**  FAILURE: int zero
+** SUCCESS: int of the size of **s
+** FAILURE: int zero
 */
 
 int	ft_sstrlen(char **str)
@@ -84,7 +81,6 @@ int	ft_sstrlen(char **str)
 }
 
 /*
-** DESCRIPTION
 ** The ft_sstrdel() will free the char **s and set every pointer to NULL.
 */
 

@@ -34,8 +34,8 @@ void		ft_filler(t_fdf *fdf, int x, int y)
 		x = 0;
 		while (x < fdf->x_map && splitt[x])
 		{
-			fdf->map[y][x].h1 = ft_atoi(splitt[x]);
-			fdf->map[y][x].h1 > fdf->max_map ? fdf->max_map = fdf->map[y][x].h1 : 0;
+			fdf->map[y][x].h_1 = ft_atoi(splitt[x]);
+			fdf->map[y][x].h_1 > fdf->max_map ? fdf->max_map = fdf->map[y][x].h_1 : 0;
 			x++;
 		}
 		splitt ? ft_sstrdel(splitt) : 0;
