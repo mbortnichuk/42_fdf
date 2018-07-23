@@ -17,7 +17,7 @@
 ** in all axis with fdf->x_pos, fdf->y_pos and fdf->x_pos.
 */
 
-void		ft_shifting(t_fdf *fdf, t_pxl *pix)
+void	ft_shifting(t_pxl *pix, t_fdf *fdf)
 {
 	float	angle;
 	float	x[2];
@@ -43,7 +43,7 @@ void		ft_shifting(t_fdf *fdf, t_pxl *pix)
 ** Recalculate all the points.
 */
 
-void			ft_recalc(t_fdf *fdf, int x, int y)
+void	ft_recalc(int x, int y, t_fdf *fdf)
 {
 	t_line	temp;
 
@@ -56,7 +56,7 @@ void			ft_recalc(t_fdf *fdf, int x, int y)
 			fdf->map[y][x].x_1 = fdf->zoom * (x - fdf->x_map / 2);
 			fdf->map[y][x].y_1 = fdf->zoom * (y - fdf->y_map / 2);
 			fdf->map[y][x].h = fdf->map[y][x].h_1 * fdf->height;
-			ft_shifting(fdf, &fdf->map[y][x]);
+			ft_shifting(&fdf->map[y][x], fdf);
 			temp.a = fdf->map[y][x].x_1;
 			temp.b = fdf->map[y][x].y_1;
 			temp.c = fdf->map[y][x].h - 1000;

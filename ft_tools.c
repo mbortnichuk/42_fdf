@@ -16,12 +16,11 @@
 ** Error handling. Will print the error and exit the program.
 */
 
-void			ft_error(char *msg)
+void	ft_error(char *msg)
 {
 	ft_putendl_fd("\e[1;31mKO\n", 2);
 	ft_putendl_fd(msg, 2);
 	ft_putstr_fd("\e[0m", 2);
-	// ft_printf(RED"KO, %s\n"RC, msg);
 	exit(0);
 }
 
@@ -29,13 +28,14 @@ void			ft_error(char *msg)
 ** Defaults value when the map is first generated or if the reset key is pushed.
 */
 
-void		ft_defaults(t_fdf *fdf)
+void	ft_defaults(t_fdf *fdf)
 {
 	fdf->x_wind = ((fdf->x_map > fdf->y_map) ? fdf->x_map : fdf->y_map) * 10;
 	(fdf->x_wind < 800) ? fdf->x_wind = 800 : (0);
 	(fdf->x_wind > 1920) ? fdf->x_wind = 1920 : (0);
 	fdf->y_wind = (fdf->x_wind * 9) / 16;
-	fdf->zoom = fdf->y_wind / ((fdf->x_map > fdf->y_map) ? fdf->x_map : fdf->y_map);
+	fdf->zoom = fdf->y_wind / \
+		((fdf->x_map > fdf->y_map) ? fdf->x_map : fdf->y_map);
 	if (!fdf->zoom)
 		fdf->zoom = 2;
 	fdf->height = 1;
@@ -90,7 +90,8 @@ int		ft_is_number(char *line)
 		t++;
 	while (line && line[t])
 	{
-		if ((line[t] >= 48 && line[t] <= 58) || line[t] == 32 || line[t] == '-')
+		if ((line[t] >= 48 && line[t] <= 58) || \
+			line[t] == 32 || line[t] == '-')
 			t++;
 		else
 			return (1);

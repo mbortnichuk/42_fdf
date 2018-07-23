@@ -17,27 +17,27 @@
 ** until the two point are met.
 */
 
-void	ft_straight(t_fdf *fdf, t_pxl a, t_pxl b, int s)
+void	ft_straight(t_pxl a, t_pxl b, t_fdf *fdf, int s)
 {
 	if (a.y == b.y)
 	{
 		s = (a.x > b.x) ? -1 : 1;
 		while (a.x != b.x)
 		{
-			ft_mlx_img(fdf, a);
+			ft_mlx_img(a, fdf);
 			a.x += s;
 		}
-		ft_mlx_img(fdf, a);
+		ft_mlx_img(a, fdf);
 	}
 	else
 	{
 		s = (a.y > b.y) ? -1 : 1;
 		while (a.y != b.y)
 		{
-			ft_mlx_img(fdf, a);
+			ft_mlx_img(a, fdf);
 			a.y += s;
 		}
-		ft_mlx_img(fdf, a);
+		ft_mlx_img(a, fdf);
 	}
 }
 
@@ -47,24 +47,24 @@ void	ft_straight(t_fdf *fdf, t_pxl a, t_pxl b, int s)
 ** diagonal needed for the two pixel to meet.
 */
 
-void	ft_diagonal_y(t_fdf *fdf, t_pxl step, t_pxl pnt, float j)
+void	ft_diagonal_y(t_pxl step, t_pxl pnt, t_fdf *fdf, float j)
 {
 	float	st_point;
 	t_pxl	a;
 	int		i;
 	int		n;
-	
+
 	i = step.x;
 	n = step.y;
 	st_point = pnt.x;
 	a.x = st_point;
 	a.y = i;
-	ft_mlx_img(fdf, a);
+	ft_mlx_img(a, fdf);
 	while (i <= n)
 	{
 		a.x = st_point;
 		a.y = i;
-		ft_mlx_img(fdf, a);
+		ft_mlx_img(a, fdf);
 		st_point += j;
 		i++;
 	}
@@ -76,7 +76,7 @@ void	ft_diagonal_y(t_fdf *fdf, t_pxl step, t_pxl pnt, float j)
 ** diagonal needed for the two pixel to meet.
 */
 
-void	ft_diagonal_x(t_fdf *fdf, t_pxl step, t_pxl pnt, float j)
+void	ft_diagonal_x(t_pxl step, t_pxl pnt, t_fdf *fdf, float j)
 {
 	float	st_point;
 	t_pxl	a;
@@ -88,12 +88,12 @@ void	ft_diagonal_x(t_fdf *fdf, t_pxl step, t_pxl pnt, float j)
 	st_point = pnt.y;
 	a.x = i;
 	a.y = st_point;
-	ft_mlx_img(fdf, a);
+	ft_mlx_img(a, fdf);
 	while (i <= n)
 	{
 		a.x = i;
 		a.y = st_point;
-		ft_mlx_img(fdf, a);
+		ft_mlx_img(a, fdf);
 		st_point += j;
 		i++;
 	}
@@ -113,19 +113,19 @@ void	ft_join_pixel(t_fdf *fdf, t_pxl pix1, t_pxl pix2)
 	float	m;
 
 	if (pix1.x == pix2.x || pix1.y == pix2.y)
-		ft_straight(fdf, pix1, pix2, 0);
+		ft_straight(pix1, pix2, fdf, 0);
 	else if (abs(pix1.x - pix2.x) > abs(pix1.y - pix2.y))
 	{
 		m = ((float)(pix2.y - pix1.y)) / (pix2.x - pix1.x);
 		shift.x = (int)fmin(pix1.x, pix2.x);
 		shift.y = (int)fmax(pix1.x, pix2.x);
-		ft_diagonal_x(fdf, shift, (pix1.x < pix2.x) ? pix1 : pix2, m);
+		ft_diagonal_x(shift, (pix1.x < pix2.x) ? pix1 : pix2, fdf, m);
 	}
 	else
 	{
 		m = ((float)(pix2.x - pix1.x)) / (pix2.y - pix1.y);
 		shift.x = (int)fmin(pix1.y, pix2.y);
 		shift.y = (int)fmax(pix1.y, pix2.y);
-		ft_diagonal_y(fdf, shift, (pix1.y < pix2.y) ? pix1 : pix2, m);
+		ft_diagonal_y(shift, (pix1.y < pix2.y) ? pix1 : pix2, fdf, m);
 	}
 }

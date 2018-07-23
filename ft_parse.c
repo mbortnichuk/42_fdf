@@ -16,7 +16,7 @@
 ** Fill the array with values from the map.
 */
 
-void		ft_filler(t_fdf *fdf, int x, int y)
+void		ft_filler(int x, int y, t_fdf *fdf)
 {
 	int		file_descr;
 	char	*str;
@@ -31,12 +31,12 @@ void		ft_filler(t_fdf *fdf, int x, int y)
 		splitt = ft_strsplit(temp, ' ');
 		str ? ft_memdel((void *)&str) : 0;
 		temp ? ft_memdel((void *)&temp) : 0;
-		x = 0;
-		while (x < fdf->x_map && splitt[x])
+		x = -1;
+		while (++x < fdf->x_map && splitt[x])
 		{
 			fdf->map[y][x].h_1 = ft_atoi(splitt[x]);
-			fdf->map[y][x].h_1 > fdf->max_map ? fdf->max_map = fdf->map[y][x].h_1 : 0;
-			x++;
+			fdf->map[y][x].h_1 > fdf->max_map ? fdf->max_map = \
+				fdf->map[y][x].h_1 : 0;
 		}
 		splitt ? ft_sstrdel(splitt) : 0;
 		y++;
@@ -49,13 +49,14 @@ void		ft_filler(t_fdf *fdf, int x, int y)
 ** Allocate the array with the map size retrieved below.
 */
 
-void		ft_alloc(t_fdf *fdf, int i)
+void		ft_alloc(int i, t_fdf *fdf)
 {
-	((fdf->x_map * fdf->y_map) > 1000000) ? ft_error("A non ascii char has been found.") : 0;
+	((fdf->x_map * fdf->y_map) > 1000000) ? \
+		ft_error("A non ascii char has been found.") : 0;
 	if (!(fdf->map = (t_pxl **)malloc(sizeof(t_pxl *) * fdf->y_map)))
 		ft_error("Malloc error.");
 	while (i < fdf->y_map)
 		if (!(fdf->map[i++] = (t_pxl *)malloc(sizeof(t_pxl) * fdf->x_map)))
 			ft_error("Malloc error.");
-	ft_filler(fdf, 0, 0);
+	ft_filler(0, 0, fdf);
 }

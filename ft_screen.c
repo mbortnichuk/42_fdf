@@ -16,14 +16,15 @@
 ** Display the multiplier and speed value on screen.
 */
 
-void		ft_data_var(t_fdf *fdf, int offx, int offy)
+void		ft_data_var(int offx, int offy, t_fdf *fdf)
 {
 	char	*vtmp;
 	char	*temp;
 
 	vtmp = ft_itoa(fdf->height);
 	temp = ft_strjoin("Height scale: ", vtmp);
-	mlx_string_put(fdf->mlx.mlx, fdf->mlx.win, 5, fdf->y_wind - 25, 0x3399FF, temp);
+	mlx_string_put(fdf->mlx.mlx, fdf->mlx.win, 5, \
+		fdf->y_wind - 25, 0x3399FF, temp);
 	temp ? ft_memdel((void *)&temp) : 0;
 	vtmp ? ft_memdel((void *)&vtmp) : 0;
 	vtmp = ft_itoa(fdf->sp);
@@ -40,7 +41,7 @@ void		ft_data_var(t_fdf *fdf, int offx, int offy)
 ** in the mlx window.
 */
 
-void		ft_data_xyz(t_fdf *fdf, int offx)
+void		ft_data_xyz(int offx, t_fdf *fdf)
 {
 	char	*rt;
 	char	*temp;
@@ -61,7 +62,8 @@ void		ft_data_xyz(t_fdf *fdf, int offx)
 	vtmp = ft_itoa(fdf->z_pos);
 	temp = ft_strjoin(rt, vtmp);
 	offx = (fdf->x_wind - (ft_strlen(temp) * 10)) / 2;
-	mlx_string_put(fdf->mlx.mlx, fdf->mlx.win, offx, fdf->y_wind - 25, 0xCC0033, temp);
+	mlx_string_put(fdf->mlx.mlx, fdf->mlx.win, offx, \
+		fdf->y_wind - 25, 0xCC0033, temp);
 	temp ? ft_memdel((void *)&temp) : 0;
 	vtmp ? ft_memdel((void *)&vtmp) : 0;
 	rt ? ft_memdel((void *)&rt) : 0;
@@ -90,4 +92,36 @@ void		ft_data_msize(t_fdf *fdf)
 	rt ? ft_memdel((void *)&rt) : 0;
 	temp ? ft_memdel((void *)&temp) : 0;
 	vtmp ? ft_memdel((void *)&vtmp) : 0;
+}
+
+/*
+** The ft_sstrlen() function will return the size of the char **s.
+** SUCCESS: int of the size of **s
+** FAILURE: int zero
+*/
+
+int			ft_sstrlen(char **str)
+{
+	int i;
+
+	i = 0;
+	while (str[i])
+		i++;
+	return (i);
+}
+
+/*
+** The ft_sstrdel() will free the char **s and set every pointer to NULL.
+*/
+
+void		ft_sstrdel(char **str)
+{
+	int i;
+
+	i = 0;
+	while (str[i])
+	{
+		ft_memdel((void *)&str[i++]);
+	}
+	ft_memdel((void *)&str);
 }

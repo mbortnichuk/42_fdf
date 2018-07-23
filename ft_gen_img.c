@@ -24,7 +24,7 @@ void		ft_img_gen(t_fdf *fdf)
 	int x;
 	int y;
 
-	ft_recalc(fdf, 0, 0);
+	ft_recalc(0, 0, fdf);
 	fdf->mlx.img = mlx_new_image(fdf->mlx.mlx, fdf->x_wind, fdf->y_wind);
 	y = 0;
 	while (y < fdf->y_map)

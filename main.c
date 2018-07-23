@@ -33,7 +33,8 @@ void			ft_parser(t_fdf *fdf)
 		temp = ft_strtrim(str);
 		splitt = ft_strsplit(temp, ' ');
 		str ? ft_memdel((void *)&str) : 0;
-		ft_is_number(temp) ? ft_error("Not a number has been found in file.") : (0);
+		ft_is_number(temp) ? \
+			ft_error("Not a number has been found in file.") : (0);
 		temp ? ft_memdel((void *)&temp) : 0;
 		(fdf->x_map == 0) ? fdf->x_map = ft_sstrlen(splitt) : 0;
 		if (fdf->x_map != ft_sstrlen(splitt))
@@ -42,7 +43,7 @@ void			ft_parser(t_fdf *fdf)
 		fdf->y_map++;
 	}
 	close(file_descr);
-	ft_alloc(fdf, 0);
+	ft_alloc(0, fdf);
 }
 
 /*
@@ -60,53 +61,21 @@ void			ft_screeninfo(t_fdf *fdf)
 	mlx_string_put(fdf->mlx.mlx, fdf->mlx.win, off_set, 0, 0x00FF00, temp);
 	temp ? ft_memdel((void *)&temp) : (0);
 	ft_data_msize(fdf);
-	ft_data_xyz(fdf, 0);
-	ft_data_var(fdf, 0, 0);
-}
-
-/*
-** The ft_sstrlen() function will return the size of the char **s.
-** SUCCESS: int of the size of **s
-** FAILURE: int zero
-*/
-
-int	ft_sstrlen(char **str)
-{
-	int i;
-
-	i = 0;
-	while (str[i])
-		i++;
-	return (i);
-}
-
-/*
-** The ft_sstrdel() will free the char **s and set every pointer to NULL.
-*/
-
-void	ft_sstrdel(char **str)
-{
-	int i;
-
-	i = 0;
-	while (str[i])
-	{
-		ft_memdel((void *)&str[i++]);
-	}
-	ft_memdel((void *)&str);
+	ft_data_xyz(0, fdf);
+	ft_data_var(0, 0, fdf);
 }
 
 static void		ft_instructions(void)
 {
 	ft_putendl("\e[32mOK\e[0m");
-	ft_putendl("\n\t  \e[1;102;90m Press [ESC] to quit FDF \e[0m\n");
+	ft_printf(CYN"\n\t    Press [ESC] to quit FDF\n"RC);
 }
 
 /*
 ** Starting point of program.
 */
 
-int main(int ac, char **av)
+int				main(int ac, char **av)
 {
 	t_fdf	fdf;
 
@@ -116,12 +85,12 @@ int main(int ac, char **av)
 	fdf.x_map = 0;
 	fdf.y_map = 0;
 	fdf.max_map = 0;
-	// ft_putstr("\t\t Parsing... ");
 	ft_printf(GRN"\t\tParsing..."RC);
 	ft_parser(&fdf);
 	ft_defaults(&fdf);
 	fdf.mlx.mlx = mlx_init();
-	fdf.mlx.win = mlx_new_window(fdf.mlx.mlx, fdf.x_wind, fdf.y_wind, "fdf by mbortnic");
+	fdf.mlx.win = mlx_new_window(fdf.mlx.mlx, \
+		fdf.x_wind, fdf.y_wind, "fdf by mbortnic");
 	ft_img_gen(&fdf);
 	ft_instructions();
 	mlx_hook(fdf.mlx.win, 2, (1L << 0), &ft_keyhook, &fdf);
