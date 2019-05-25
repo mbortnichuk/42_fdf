@@ -28,4 +28,4 @@ make
 ![foo](https://github.com/mbortnichuk/42_fdf/blob/master/pics/mars.png "mars")
 
 ## Author
-Mariana Bortnichuk - mbortnic
+Mariana Bortnichuk - [mbortnic](https://github.com/mbortnichuk "mbortnic")
